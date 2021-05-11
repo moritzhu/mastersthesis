@@ -1,0 +1,33 @@
+{
+  "name": "session-cookies",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "argon2": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "bunyan": "^1.8.15",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "crypto": "^1.0.1",
+    "errorhandler": "^1.5.1",
+    "express-rate-limit": "^5.2.6",
+    "express-session": "^1.17.1",
+    "fast-xml-parser": "^3.19.0",
+    "he": "^1.2.0",
+    "keygrip": "^1.1.0",
+    "loglevel": "^1.7.1",
+    "morgan": "^1.10.0",
+    "node-serialize": "0.0.4",
+    "pino": "^6.11.3",
+    "serialize-javascript": "^5.0.1",
+    "sonarqube-scanner": "^2.8.0",
+    "tracer": "^1.1.4",
+    "winston": "^3.3.3"
+  }
+}
