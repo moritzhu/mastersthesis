@@ -1,12 +1,10 @@
 var express = require('express');
-var session = require('express-session');
+var cors = require('cors')
 
 var app = express();
-
-app.use(session({ secret: 'keyboard cat'}))
+app.use(cors())
 
 // Access the session as req.session
 app.get('/', function(req, res, next) {
-  res.send(req.session)
 })
 app.listen(3000);
