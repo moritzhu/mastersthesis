@@ -42,5 +42,5 @@ jobs:
         with:
           # GitHub Token to create issues in the repository
           # Target URL
-          target: localhost:3000.
+          target: http://localhost:3000/".
           
