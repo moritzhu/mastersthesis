@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
 const fs = require('fs');
 const createLogger = require('logging');
-const { isArray } = require("util");
 const logger = createLogger.default('DataCollection');
 //Handle params
 var params = process.argv.slice(2)
