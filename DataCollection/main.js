@@ -38,38 +38,43 @@ async function getNPMJSData(){
     let npmjsDownloadsURL = url + "downloads/point/"+ timeframe + "/" + libraryName
     response = await fetch(npmjsDownloadsURL);
     body = await response.json();
-    library.data.downloads = body
+    if(!('error' in body)){
+        library.data.downloads = body
 
-    //Get more library details
-    var npmjsRegistryURL="https://registry.npmjs.org/" + libraryName
-    response = await fetch(npmjsRegistryURL);
-    body = await response.json();
-    let firstRelease= body.time.created
-    let lastRelease = body.time.modified
-    let timeDiffMS  = Math.abs(new Date() - new Date(firstRelease))
-    let timeDiff    = timeDiffMS / (1000 *60*60*24*365)
-    let releasesPerYear= (Object.keys(body.time).length - 2) / timeDiff  //-2 because of modified and created
+        //Get more library details
+        var npmjsRegistryURL="https://registry.npmjs.org/" + libraryName
+        response = await fetch(npmjsRegistryURL);
+        body = await response.json();
+        let firstRelease= body.time.created
+        let lastRelease = body.time.modified
+        let timeDiffMS  = Math.abs(new Date() - new Date(firstRelease))
+        let timeDiff    = timeDiffMS / (1000 *60*60*24*365)
+        let releasesPerYear= (Object.keys(body.time).length - 2) / timeDiff  //-2 because of modified and created
 
-    //Add to data Array
-    library.data.npmjs = new Object()
-    library.data.npmjs.sumOfReleases = Object.keys(body.time).length - 2
-    library.data.npmjs.releasesPerYear = releasesPerYear
-    library.data.npmjs.firstRelease = firstRelease
-    library.data.npmjs.lastRelease = lastRelease
-    library.data.npmjs.numberOfMaintainers = body.maintainers.length
-    
-    logger.info("Got npmjs data!")
-    try{
-        let issueURL = body.bugs.url
-        if(issueURL.substring(0,19) !== "https://github.com/"){
-            logger.warn("No Github Repo was found.")
+        //Add to data Array
+        library.data.npmjs = new Object()
+        library.data.npmjs.sumOfReleases = Object.keys(body.time).length - 2
+        library.data.npmjs.releasesPerYear = releasesPerYear
+        library.data.npmjs.firstRelease = firstRelease
+        library.data.npmjs.lastRelease = lastRelease
+        library.data.npmjs.numberOfMaintainers = body.maintainers.length
+        
+        logger.info("Got npmjs data!")
+        try{
+            let issueURL = body.bugs.url
+            if(issueURL.substring(0,19) !== "https://github.com/"){
+                logger.warn("No Github Repo was found.")
+                getNPMsData()
+            }else{
+                let gitRepo  = issueURL.substring(19, issueURL.length-7)
+                getGithubData( gitRepo)
+            }
+        }catch{
             getNPMsData()
-        }else{
-            let gitRepo  = issueURL.substring(19, issueURL.length-7)
-            getGithubData( gitRepo)
         }
-    }catch{
-        getNPMsData()
+    }else{
+        logger.error("Library does not seem to exists. Please check the spelling.")
+
     }
 
 }
