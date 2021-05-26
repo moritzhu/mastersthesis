@@ -1,0 +1,33 @@
+
+
+<div>
+  <div>
+    {{input}}
+  </div>
+  <div>
+    {{basic}}
+  </div>
+  <div>
+    {{image}}
+  </div>
+  <div>
+    {{link}}
+  </div>
+  <p> </p>
+  <p> </p>
+  <div>Using inner HTML:</div>
+  <div [innerHTML]="basic"></div>
+  <div [innerHTML]="image"></div>
+  <div [innerHTML]="link "></div>
+  <p> </p>
+  <p> </p>
+  <button (click)="bypassBasic=!bypassBasic">Toggle basic with bypass</button>
+  <button (click)="bypassImage=!bypassImage">Toggle image with bypass</button>
+  <button (click)="bypassLink=!bypassLink">Toggle link with bypass</button>
+
+  <div>Using inner HTML with bypass:</div>
+  <div *ngIf="bypassBasic" [innerHTML]="basic | safe: 'html'"></div>
+  <div *ngIf="bypassImage" [innerHTML]="image | safe: 'html'"></div>
+  <div *ngIf="bypassLink" [innerHTML]="link | safe: 'html'"></div>
+</div>
+<router-outlet></router-outlet>
