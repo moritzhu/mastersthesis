@@ -19,6 +19,9 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 public class Injection {
 
@@ -31,6 +34,8 @@ public class Injection {
     @Autowired
     UserRepository userRepository;
 
+    Logger logger = LoggerFactory.getLogger(Injection.class);
+
     @GetMapping("/javaUnsecure")
     public String javaUnsecure(){
         String input = "' OR 1=1";
@@ -42,6 +47,7 @@ public class Injection {
             while(rs.next()){
                 result += rs.getString("name") + " \n" ;
             }
+            logger.info(result);
             return(result);
         } catch (Exception e) {
             return("error");
@@ -60,6 +66,7 @@ public class Injection {
             while(rs.next()){
                 result += rs.getString("name") + " \n" ;
             }
+            logger.info(result);
             return(result);
         } catch (Exception e) {
             return("error");
@@ -69,7 +76,9 @@ public class Injection {
     @GetMapping("/jdbcUnsecure")
     public String jdbcUnsecure(){
         String input = "' OR 1=1";
-        return(jdbcTemplate.queryForList("SELECT * FROM user WHERE name='"+ input).toString());
+        String result = jdbcTemplate.queryForList("SELECT * FROM user WHERE name='"+ input).toString();
+        logger.info(result);
+        return(result);
     }
 
     @GetMapping("/jdbcSecure")
@@ -77,13 +86,16 @@ public class Injection {
         String input = "' OR 1=1";
         String sql = "SELECT * FROM user WHERE name= :name";
         SqlParameterSource namedParameters = new MapSqlParameterSource("name", input);
-
-        return(namedParameterJdbcTemplate.queryForList(sql,namedParameters).toString());
+        String result = namedParameterJdbcTemplate.queryForList(sql,namedParameters).toString();
+        logger.info(result);
+        return(result);
     }
 
     @GetMapping("/jpaSecure")
     public String jpaUnsecure(){
-        String input = "' OR 1=1";        
-        return(userRepository.findByName(input).toString());
+        String input = "' OR 1=1";    
+        String result = userRepository.findByName(input).toString();
+        logger.info(result);    
+        return(result);
     }
 }
