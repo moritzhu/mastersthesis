@@ -163,7 +163,6 @@ async function getGithubData(gitRepo){
 
     if(body.length < 100){
         let firstCommit
-        console.log(body.length)
         if(body.length ===0){
             firstCommit = currentlyFirstCommit
         }else{
@@ -193,7 +192,11 @@ async function getNPMsData(){
 
     library.npmsData = new Object()
     library.npmsData.dependents = body.collected.npm.dependentsCount
-    library.npmsData.score = body.score
+    library.npmsData.score = body.score.final
+    library.npmsData.quality = body.score.detail.quality
+    library.npmsData.popularity = body.score.detail.popularity
+    library.npmsData.maintenance = body.score.detail.maintenance
+
     library.npmsData.analyzedAt = body.analyzedAt
 
     logger.info("Got npms.io data!")
@@ -218,7 +221,7 @@ async function getSOData(){
             page++
          }else{
             remainingRequestSO = body.quota_remaining
-            let sum = (pageNumber-1)*50 + body.items.length
+            let sum = (page-1)*50 + body.items.length
             library.data.stackOverflow = new Object()
             library.data.stackOverflow.numOfAcceptedSOQuestions = sum
             break
@@ -233,7 +236,7 @@ async function getSOData(){
 function writeData(){
     console.log(library)
     if(withSO){
-        logger.info("Number of remaining requests at Stack Overflow: " + remainingRequestSO)
+        logger.info("Number of remaining Stack Overflow requests: " + remainingRequestSO)
     }
 
     //Export to file
