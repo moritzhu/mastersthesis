@@ -1,12 +1,14 @@
+package main;
+
 import java.io.IOException;
 import java.io.Serializable;
 
 //This class will open the calculator if deserialized 
-public class DeserializationExploit implements Serializable {
+public class DezSafeClass implements Serializable {
 
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException{
         in.defaultReadObject();
-        System.out.println("worked");
-        Runtime.getRuntime().exec("calc");
+        System.out.println("Do nothing bad...");
+        
     }
 }
