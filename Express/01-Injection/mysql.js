@@ -58,7 +58,7 @@ app.get('/userPlaceholder', (req, res) => {
       });
 })
 
-app.listen(port, () => console.log(`SQLite injection listening on ${port}!`))
+app.listen(port, () => console.log(`MySQL injection listening on ${port}!`))
 
 //Global error handler 
 app.use(function(err, req, res, next) {
