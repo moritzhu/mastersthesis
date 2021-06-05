@@ -36,7 +36,7 @@ Insecure Deserialization
 
 Insufficient Logging and Monitoring  
 &nbsp; --> JS: Express/10-InsufficientLoggingAndMonitoring  
-&nbsp; --> Java: https://github.com/moritzhuether/mastersthesis/blob/main/SpringBoot/demo/src/main/java/main/demo/Injection.java --> Uses logging  
+&nbsp; --> Java: SpringBoot/demo/src/main/java/main/demo/Injection.java --> Uses logging  
 
 
 
