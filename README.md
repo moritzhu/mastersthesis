@@ -13,7 +13,7 @@ Injection
   
   
 Broken Authentication  
-&nbsp;  PW Hashing 
+&nbsp;  PW Hashing   
 &nbsp;&nbsp;--> JS: GeneralJS/pwHashing.js  
 &nbsp;&nbsp; --> Java: SpringBoot/demo/src/main/java/main/demo/WebSecurityConfig.java --> Contains PasswordEncoder declarations  
              
