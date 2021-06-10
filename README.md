@@ -29,6 +29,7 @@ XSS
 &nbsp; --> React: React/main/src/XSS.js  
 &nbsp; --> Vue.js: Vue/main/src/components/HelloWorld.vue  
 &nbsp; --> Angular: Angular/main/src/app  
+&nbsp; --> Sanitization and escaping libraries: React/main/src/XSS.js 
 
 Insecure Deserialization  
 &nbsp; --> JS: Express/08-InsecureDeserialization/serialisation.js  
